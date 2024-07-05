@@ -14,6 +14,7 @@ import java.util.*;
 
 public class TCPsocket {
 
+    //와이어샤크 캡처 성공
     public static void main(String[] args) throws IOException, InterruptedException {
         Socket socket = new Socket("127.0.0.1", 80);
         String cookie;
