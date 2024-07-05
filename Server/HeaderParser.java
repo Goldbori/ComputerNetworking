@@ -6,6 +6,7 @@ import java.util.HashMap;
 import Server.HTTPException;
 public class HeaderParser {
     
+    
 
     void HeaderHandler(BufferedReader br, String[] MPV, HashMap<String,String> headerMap)throws IOException, HTTPException{
         try{
