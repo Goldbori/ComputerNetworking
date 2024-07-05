@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import Server.HeaderParser;
-import Server.MethodHandler;
+import Server.ResponseHandler;
 import Server.MethodParser;
 public class HttpServer {
     
@@ -34,28 +34,7 @@ public class HttpServer {
                 String returnval = "";
                 System.out.println(methodPathVersion[0]);
 
-                switch (methodPathVersion[0]) {         //메서드에 따른 처리
-                    case "HEAD":
-                        
-                        break;
-                    case "GET":
-                    System.out.println("TTs");
-                    returnval = new MethodHandler().getHandler();
-                        break;
-                    case "POST":
-                        
-                        break;
-                    case "DELETE":
-                        
-                        break;
-                
-                    default:
-                        break;
-                }
-
-                bw.append(returnval);
-                bw.write(returnval+"\n");
-                bw.flush();
+                returnval = new ResponseHandler().methodHandler(methodPathVersion[0]);
 
 
 
