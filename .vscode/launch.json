@@ -1,0 +1,42 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "HttpServer",
+            "request": "launch",
+            "mainClass": "Server.HttpServer",
+            "projectName": "컴퓨터네트워크_400f321b"
+        },
+        {
+            "type": "java",
+            "name": "TCPsocket",
+            "request": "launch",
+            "mainClass": "TCPsocket",
+            "projectName": "컴퓨터네트워크_400f321b"
+        },
+        {
+            "type": "java",
+            "name": "Client",
+            "request": "launch",
+            "mainClass": "기본소켓통신.Client",
+            "projectName": "컴퓨터네트워크_400f321b"
+        },
+        {
+            "type": "java",
+            "name": "Server",
+            "request": "launch",
+            "mainClass": "기본소켓통신.Server",
+            "projectName": "컴퓨터네트워크_400f321b"
+        }
+    ]
+}
