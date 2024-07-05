@@ -1,6 +1,11 @@
 package Server;
 
 public class HTTPException extends Exception{
+    int status;
+    HTTPException(){}
+    HTTPException(int status){
+        this.status = status;
+    }
     
     @Override
     public void printStackTrace() {

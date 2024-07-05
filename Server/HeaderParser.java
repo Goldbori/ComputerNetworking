@@ -6,7 +6,7 @@ import java.util.HashMap;
 import Server.HTTPException;
 public class HeaderParser {
     
-    
+
 
     void HeaderHandler(BufferedReader br, String[] MPV, HashMap<String,String> headerMap)throws IOException, HTTPException{
         try{
@@ -18,10 +18,11 @@ public class HeaderParser {
                 }
                 String[] firstData = line.split(" ");
 
-                MPV[0] = firstData[0];
-                MPV[1] = firstData[1];
-                MPV[2] = firstData[2];
+                MPV[0] = firstData[0];  //메서드
+                MPV[1] = firstData[1];  //경로
+                MPV[2] = firstData[2];  //HTTP버전
 
+                if (!MPV[2].equals("HTTP/1.1")) throw new HTTPException(505);
                 //br.readLine();  //한줄 띄고
                 //System.out.println(httpMethod);
                 

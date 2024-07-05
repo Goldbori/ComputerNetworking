@@ -28,8 +28,9 @@ public class HttpServer {
                 String[] methodPathVersion = new String[3]; // 0: 메서드, 1: 경로, 2: HTTP버전
 
                 
-                hP.HeaderHandler(br,methodPathVersion,headerMap);
-                System.out.println(Arrays.toString(methodPathVersion));
+                hP.HeaderHandler(br,methodPathVersion,headerMap);   //헤더 처리 완료
+
+                //System.out.println(Arrays.toString(methodPathVersion));
                 //request 값 처리 완료
                 String returnval = "";
                 System.out.println(methodPathVersion[0]);
