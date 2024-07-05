@@ -1,10 +1,12 @@
+package Client;
 
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
-import java.util.concurrent.TimeUnit;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -14,11 +16,12 @@ public class TCPsocket {
 
     public static void main(String[] args) throws IOException, InterruptedException {
         Socket socket = new Socket("127.0.0.1", 80);
+        String cookie;
         BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-        String ostr = "GET / HTTP/1.1\r\n" +
+        String ostr = "HEAD / HTTP/1.1\r\n" +
                 "Host: localhost\r\n" +
-                "User-Agent: CustomClient/1.0\r\n" +
+                "User-Agent: HTTPClient/1.0\r\n" +
                 "\r\n";
         ;
         bw.append(ostr);

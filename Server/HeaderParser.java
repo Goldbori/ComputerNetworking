@@ -31,14 +31,11 @@ public class HeaderParser {
                     if (line.isEmpty())break;   //앞으로 빈라인이 들어오면 EOL
                     String[] headerData = line.split(": ");
                     headerMap.put(headerData[0], headerData[1]);
-                    System.out.println("check");
+                    
                 }
         }
         catch (Exception e){
-            throw new HTTPException();
-        }
-        finally{
-
+            throw new HTTPException(400);
         }
         
                 

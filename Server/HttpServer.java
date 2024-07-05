@@ -17,11 +17,14 @@ public class HttpServer {
     public static void main(String[] args) throws IOException{
         ServerSocket server = new ServerSocket(80); //http통신을 위해 80번포트에서 서버소켓 대기
         HeaderParser hP = new HeaderParser();
+        
         System.out.println("Listening on port...");
         while (true){
             try (Socket client = server.accept()){//serverSocket에서 다른 소켓과 연결된 그 소켓을 client에 할당
 
-                BufferedReader br = new BufferedReader(new InputStreamReader(client.getInputStream()));
+                System.out.println("Socket connected from" + client.getInetAddress());  //연결된 소켓의 IP adress 출력
+
+                BufferedReader br = new BufferedReader(new InputStreamReader(client.getInputStream())); //해당소켓과의 입출력 스트림 연결
                 BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
                 
                 HashMap<String,String> headerMap = new HashMap<>(); //헤더 종류: 헤더값 저장
@@ -30,12 +33,7 @@ public class HttpServer {
                 
                 hP.HeaderHandler(br,methodPathVersion,headerMap);   //헤더 처리 완료
 
-                //System.out.println(Arrays.toString(methodPathVersion));
-                //request 값 처리 완료
-                String returnval = "";
-                System.out.println(methodPathVersion[0]);
-
-                returnval = new ResponseHandler().methodHandler(methodPathVersion[0]);
+                new ResponseHandler(methodPathVersion[0], methodPathVersion[1], bw);
 
 
 

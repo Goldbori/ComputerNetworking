@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "TCPsocket",
+            "request": "launch",
+            "mainClass": "Client.TCPsocket",
+            "projectName": "ComputerNetworking_375dcf04"
+        },
+        {
+            "type": "java",
+            "name": "HttpServer",
+            "request": "launch",
+            "mainClass": "Server.HttpServer",
+            "projectName": "ComputerNetworking_375dcf04"
+        },
+        {
+            "type": "java",
             "name": "Test",
             "request": "launch",
             "mainClass": "Test",
