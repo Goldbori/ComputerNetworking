@@ -16,13 +16,17 @@ public class HeaderParser {
                 System.out.println(line);
                 
                 if (line == null){
-                    //이러면 클라이언트 오류이므로 400반환
+                   throw new HTTPException(400);
                 }
                 String[] firstData = line.split(" ");
-
-                MPV[0] = firstData[0];  //메서드
-                MPV[1] = firstData[1];  //경로
-                MPV[2] = firstData[2];  //HTTP버전
+                try{
+                    MPV[0] = firstData[0];  //메서드
+                    MPV[1] = firstData[1];  //경로
+                    MPV[2] = firstData[2];  //HTTP버전
+                }
+                catch (ArrayIndexOutOfBoundsException e){
+                    throw new HTTPException(400);
+                }
 
                 if (!MPV[2].equals("HTTP/1.1")) throw new HTTPException(505);
                 //br.readLine();  //한줄 띄고
@@ -38,9 +42,11 @@ public class HeaderParser {
                 }
                 
         }
+        catch (HTTPException e){
+           throw e;
+        }
         catch (Exception e){
             e.printStackTrace();
-            throw new HTTPException(400);
         }
         
                 

@@ -18,7 +18,21 @@ public class ClientHandler implements Runnable {
         this.hP = new HeaderParser();
         this.bP = new BodyParser();
     }
-
+    
+    void receiveHTTPRequest(BufferedReader br, String[] MPV, HashMap<String, String> headerMap, StringBuilder sb) throws IOException, HTTPException {
+        headerMap.clear(); // 헤더 초기화
+        hP.HeaderHandler(br, MPV, headerMap);
+        if (headerMap.containsKey("Content-Length")) { // Body가 있는 경우
+            bP.BodyHandler(br, sb, Integer.parseInt(headerMap.get("Content-Length")));  // Body 처리 완료
+        }
+    }
+    void sendHTTPResponse(BufferedWriter bw, String method, String path, HashMap<String,String> headerMap, StringBuilder sb) throws IOException, HTTPException{
+        new ResponseHandler(method, path, bw, headerMap, sb);
+        sb.setLength(0);    
+    }
+    void sendExceptionResponse(BufferedWriter bw, int code) throws IOException{
+        new ResponseHandler(code, bw);
+    }
     @Override
     public void run() {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(client.getInputStream()));
@@ -31,19 +45,17 @@ public class ClientHandler implements Runnable {
             HashMap<String, String> headerMap = new HashMap<>(); // 헤더 종류: 헤더값 저장
             String[] methodPathVersion = new String[3]; // 0: 메서드, 1: 경로, 2: HTTP 버전
             StringBuilder sb = new StringBuilder(); // Body 저장할 StringBuilder
-
-            hP.HeaderHandler(br, methodPathVersion, headerMap); // 헤더 처리 완료
-            if (headerMap.containsKey("Content-Length")) { // Body가 있는 경우
-                bP.BodyHandler(br, sb, Integer.parseInt(headerMap.get("Content-Length")));  // Body 처리 완료
+            while (client.isConnected() && !client.isClosed()){
+                try{
+                    receiveHTTPRequest(br, methodPathVersion, headerMap, sb);
+    
+                }catch(HTTPException e){
+                    sendExceptionResponse(bw, e.status);
+                    return;
+                }
+                sendHTTPResponse(bw, methodPathVersion[0], methodPathVersion[1], headerMap, sb);
             }
-            new ResponseHandler(methodPathVersion[0], methodPathVersion[1], bw); // Response 처리 후 전송
-            headerMap.clear(); // headerMap 초기화
 
-            hP.HeaderHandler(br, methodPathVersion, headerMap); // 헤더 처리 완료
-            if (headerMap.containsKey("Content-Length")) { // Body가 있는 경우
-                bP.BodyHandler(br, sb, Integer.parseInt(headerMap.get("Content-Length")));  // Body 처리 완료
-            }
-            new ResponseHandler(methodPathVersion[0], methodPathVersion[1], bw); // Response 처리 후 전송
         } catch (HTTPException e) {
             System.err.println("HTTPException: " + e.getMessage());
         } catch (IOException e) {

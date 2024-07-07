@@ -13,7 +13,7 @@ public class HttpServer {
                 try {
                     Socket client = server.accept();
                     System.out.println("Connected to client " + client.getInetAddress());
-                    client.setSoTimeout(1000);  // 1초로 타임아웃 설정
+                    client.setSoTimeout(10000);  // 10초로 타임아웃 설정
 
                     new Thread(new ClientHandler(client)).start();  // 각 요청을 받을 때마다 새로운 스레드로 각각 처리 가능
                 } catch (SocketException e) {
