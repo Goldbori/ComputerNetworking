@@ -33,7 +33,7 @@ public class HttpServer {
                 
                 hP.HeaderHandler(br,methodPathVersion,headerMap);   //헤더 처리 완료
 
-                new ResponseHandler(methodPathVersion[0], methodPathVersion[1], bw);
+                new ResponseHandler(methodPathVersion[0], methodPathVersion[1], bw);    //Response 처리후 전송
 
 
 

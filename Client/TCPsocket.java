@@ -16,7 +16,7 @@ public class TCPsocket {
 
     //와이어샤크 캡처 성공
     public static void main(String[] args) throws IOException, InterruptedException {
-        Socket socket = new Socket("127.0.0.1", 80);
+        Socket socket = new Socket("172.30.1.51", 80);
         String cookie;
         BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
@@ -24,8 +24,7 @@ public class TCPsocket {
                 "Host: localhost\r\n" +
                 "User-Agent: HTTPClient/1.0\r\n" +
                 "\r\n";
-        ;
-        bw.append(ostr);
+        
         bw.write(ostr);
         bw.flush();
 

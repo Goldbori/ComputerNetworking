@@ -2,6 +2,7 @@ package Server;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
+import Server.HTTPException;
 
 public class ResponseHandler {
     String method;
@@ -9,7 +10,7 @@ public class ResponseHandler {
     BufferedWriter bw;
     
     ResponseHandler(){}
-    ResponseHandler(String method, String path, BufferedWriter bw)throws IOException{
+    ResponseHandler(String method, String path, BufferedWriter bw)throws IOException,HTTPException{
 
         this.method = method;
         this.path = path;
@@ -18,7 +19,7 @@ public class ResponseHandler {
 
     }
 
-    String methodHandler(String method) throws IOException{
+    String methodHandler(String method) throws IOException, HTTPException{
         String responseString = "";
         switch (method) { // 메서드에 따른 처리
             case "HEAD":
@@ -51,7 +52,8 @@ public class ResponseHandler {
         }
     }
 
-    void headHandler(String path) throws IOException{
+    void headHandler(String path) throws IOException, HTTPException{
+        if (path == null) throw new HTTPException(400);
         sendTextResponse(this.bw, 200, "");
     }
 
