@@ -56,7 +56,9 @@ public class ResponseHandler {
             case "DELETE":
                 deleteHandler(path);
                 break;
-
+            case "PUT":
+                putHandler(path);
+                break;
             default:
                 break;
         }
@@ -74,6 +76,19 @@ public class ResponseHandler {
             throw new HTTPException(404);
         }
         sendTextResponse(this.bw, 200, "Hello, World!");
+        
+    }
+
+    void putHandler(String path)throws IOException, HTTPException{
+
+        if (path == null) {
+            //sendTextResponse(this.bw, 404,"");
+            throw new HTTPException(404);
+        }
+        if (path.equals("/errorpath")){
+            throw new HTTPException(404);
+        }
+        sendTextResponse(this.bw, 200, "PUT Response");
         
     }
 

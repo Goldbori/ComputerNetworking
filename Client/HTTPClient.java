@@ -49,6 +49,10 @@ public class HTTPClient {
                                 "Host: %s\r\n" +
                                 "User-Agent: HTTPClient/1.0\r\n" +
                                 "\r\n", socket.getInetAddress() + ":" + socket.getPort());
+                String put_request = String.format("PUT / HTTP/1.1\r\n" + 
+                                "Host: %s\r\n" +
+                                "User-Agent: HTTPClient/1.0\r\n" +
+                                "\r\n", socket.getInetAddress() + ":" + socket.getPort());
 
                 String delete_request = String.format("DELETE / HTTP/1.1\r\n" + // 네번째 request DELETE 메소드
                                 "Host: %s\r\n" +
@@ -73,6 +77,9 @@ public class HTTPClient {
                 sendHTTPRequest(bw, delete_request);
                 receiveHTTPResponse(br, methodPathVersion, headerMap, cookie);
 
+                // 다섯번째 요청
+                sendHTTPRequest(bw, put_request);
+                receiveHTTPResponse(br, methodPathVersion, headerMap, cookie);
                 // 404 에러 발생시키는 요청 전송 및 응답
 
                 sendHTTPRequest(bw, request_404);
