@@ -46,13 +46,10 @@ public class ResponseHandler {
         return responseString;
     }
 
-    void getHandler(String path) {
-
-        switch(path){
-
-            case "/":
-
-        }
+    void getHandler(String path)throws IOException, HTTPException{
+        if (path == null) throw new HTTPException(400);
+        sendTextResponse(this.bw, 200, "");
+        
     }
 
     void headHandler(String path) throws IOException, HTTPException{

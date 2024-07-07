@@ -31,12 +31,21 @@ public class TCPsocket {
                 "Host: %s\r\n" +
                 "User-Agent: HTTPClient/1.0\r\n" +
                 "\r\n", socket.getInetAddress() + ":" + socket.getPort());
-        
+        String get_request = String.format("GET / HTTP/1.1\r\n" + // 두번째 request GET 메소드(헤더정보와 본문정보를 요청할 때 사용)
+                "Host: %s\r\n" +
+                "User-Agent: HTTPClient/1.0\r\n" +
+                "\r\n", socket.getInetAddress() + ":" + socket.getPort());
+
         bw.write(head_request);
         bw.flush();
 
         ClientHeaderParser hP = new ClientHeaderParser();
-        //hP.HeaderHandler(br, methodPathVersion, headerMap);
+        hP.HeaderHandler(br, methodPathVersion, headerMap);
+
+        bw.write(get_request);
+        bw.flush();
+
+        hP.HeaderHandler(br, methodPathVersion, headerMap);
 
         socket.close();
     }
