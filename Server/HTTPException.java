@@ -24,13 +24,12 @@ public class HTTPException extends Exception {
     @Override
     public void printStackTrace() {
         // TODO Auto-generated method stub
-        if (this.statusMsg == null){
+        if (this.statusMsg == null) {
             System.out.println("Unknown HTTP Exception");
-        }
-        else{
+        } else {
             System.out.println(this.statusMsg);
         }
-        
+
     }
 
     public void readStatus() throws IOException {
@@ -41,7 +40,6 @@ public class HTTPException extends Exception {
         while ((line = br.readLine()) != null) {
             String[] stat = line.split(" : ");
             this.statusMap.put(Integer.parseInt(stat[0]), stat[1]);
-
         }
         br.close();
     }

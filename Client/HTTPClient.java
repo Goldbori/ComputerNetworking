@@ -1,23 +1,20 @@
 package Client;
 
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
 
 import Server.BodyParser;
 import Server.HTTPException;
-import Server.HeaderParser;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.FileReader;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.*;
 
-public class TCPsocket {
+public class HTTPClient {
 
         // 와이어샤크 캡처 성공
         public static void main(String[] args) throws IOException, InterruptedException, HTTPException {
@@ -57,7 +54,7 @@ public class TCPsocket {
                                 "Host: %s\r\n" +
                                 "User-Agent: HTTPClient/1.0\r\n" +
                                 "Cookie: %s\r\n" + // 쿠키 전송
-                                "\r\n" , socket.getInetAddress() + ":" + socket.getPort(),
+                                "\r\n", socket.getInetAddress() + ":" + socket.getPort(),
                                 "client_id=" + cookie.get("client_id"));
 
                 String request_404 = String.format("GET /errorpath HTTP/1.1\r\n" + // 404 에러 발생시키는 request
@@ -75,7 +72,7 @@ public class TCPsocket {
                 // 네번째 요청 전송 및 응답
                 sendHTTPRequest(bw, delete_request);
                 receiveHTTPResponse(br, methodPathVersion, headerMap, cookie);
-                
+
                 // 404 에러 발생시키는 요청 전송 및 응답
 
                 sendHTTPRequest(bw, request_404);
@@ -89,9 +86,6 @@ public class TCPsocket {
                                 "\r\n", socket.getInetAddress() + ":" + socket.getPort());
                 sendHTTPRequest(bw, request_505);
                 receiveHTTPResponse(br, methodPathVersion, headerMap, cookie);
-
-                
-
 
         }
 

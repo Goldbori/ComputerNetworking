@@ -99,6 +99,7 @@ public class ResponseHandler {
             Files.write(filePath, body.toString().getBytes(StandardCharsets.UTF_8));
             resbody += "File saved: " + filePath;
         }catch (Exception e){
+            sendTextResponse(this.bw, 500, "");
             e.printStackTrace();
         }
         sendTextResponse(this.bw, 200, resbody);
