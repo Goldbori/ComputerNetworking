@@ -2,6 +2,9 @@ package Server;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.UUID;
+
 import Server.HTTPException;
 
 public class ResponseHandler {
@@ -67,13 +70,18 @@ public class ResponseHandler {
 
     void sendTextResponse(BufferedWriter bw, int status, String bodyString) throws IOException{
         HTTPException e = new HTTPException(status);
+        String id = UUID.randomUUID().toString();
         String responseString = String.format(
+                       
                         "HTTP/1.1 %d %s\r\n" +
                         "Content-Type: text/plain\r\n" +
                         "Content-Length: %d\r\n" +
+                        "Date: %s\r\n" +
+                        "Server: HTTPServer\r\n" +
+                        "Set-Cookie: client_id="+ id +"\r\n" +
                         "\r\n" +
                         "%s",
-                status, e.statusMap.get(status), bodyString.length(), bodyString);
+                status, e.statusMap.get(status), bodyString.length(),Calendar.getInstance().getTime().toString(), bodyString);
         
                 bw.write(responseString);
                 bw.flush();

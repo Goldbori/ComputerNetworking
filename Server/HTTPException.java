@@ -11,10 +11,10 @@ public class HTTPException extends Exception {
     String statusMsg;
     HashMap<Integer, String> statusMap;
 
-    HTTPException() {
+    public HTTPException() {
     }
 
-    HTTPException(int status) throws IOException {
+    public HTTPException(int status) throws IOException {
         this.status = status;
         statusMap = new HashMap<>();
         this.readStatus();
@@ -33,7 +33,7 @@ public class HTTPException extends Exception {
         
     }
 
-    void readStatus() throws IOException {
+    public void readStatus() throws IOException {
         File status = new File("C:\\Users\\SUN\\Desktop\\ComputerNetworking\\Server\\src\\StatusCode.txt");
 
         BufferedReader br = new BufferedReader(new FileReader(status));
