@@ -33,10 +33,11 @@ public class TCPsocket {
 
         bw.write(head_request);
         bw.flush();
-
+        
         ClientHeaderParser hP = new ClientHeaderParser();
         hP.HeaderHandler(br,methodPathVersion,headerMap);
 
+        Thread.sleep(100000);
         // System.out.println(br.readLine());
         socket.close();
     }
