@@ -47,13 +47,19 @@ public class ResponseHandler {
     }
 
     void getHandler(String path)throws IOException, HTTPException{
-        if (path == null) throw new HTTPException(400);
-        sendTextResponse(this.bw, 200, "");
+        if (path == null) {
+            sendTextResponse(this.bw, 404,"");
+            throw new HTTPException(404);
+        }
+        sendTextResponse(this.bw, 200, "Hello, World!");
         
     }
 
     void headHandler(String path) throws IOException, HTTPException{
-        if (path == null) throw new HTTPException(400);
+        if (path == null) {
+            sendTextResponse(this.bw, 404, "");
+            throw new HTTPException(404);
+        }
         sendTextResponse(this.bw, 200, "");
     }
 
@@ -78,7 +84,7 @@ public class ResponseHandler {
                         "Set-Cookie: client_id="+ id +"\r\n" +
                         "\r\n" +
                         "%s",
-                status, e.statusMap.get(status), bodyString.length(),Calendar.getInstance().getTime().toString(), bodyString);
+                status, e.statusMap.get(status), bodyString.getBytes().length,Calendar.getInstance().getTime().toString(), bodyString);
         
                 bw.write(responseString);
                 bw.flush();
